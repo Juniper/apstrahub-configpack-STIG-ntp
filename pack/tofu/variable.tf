@@ -12,13 +12,8 @@ variable "name" {
 }
 
 variable "ntp_servers" {
-  type = map (string)
+  type        = map(string)
   description = "Map of NTP SHA256 authentication strings keyed by server IP address."
   default = {
   }
-}
-
-variable "source_ip" {
-  type = string
-  description = "Source IP to be used when sending NTP traffic."
 }

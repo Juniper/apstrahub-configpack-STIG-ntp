@@ -18,8 +18,10 @@ locals {
       ntp {
         $${keys}
         $${servers}
-      trusted-key [ $${key_nums} ];
-      source-address $${source_ip};
+        trusted-key [ $${key_nums} ];
+    {% if management_ip %}
+        source-address {{management_ip}};
+    {% endif %}
       }
     }
     EOT
@@ -37,7 +39,6 @@ resource "apstra_datacenter_configlet" "a" {
         keys      = local.key_lines
         servers   = local.server_lines
         key_nums  = substr(join(" ", range(length(local.keys) + 1)), 2, -1)
-        source_ip = var.source_ip
       })
     },
   ]
